@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://unpkg.io/sockjs-client@1.5.0/dist/sockjs.min.js"></script>
+  <script src='https://unpkg.io/@vertx/eventbus-bridge-client.js@1.0.0-1/vertx-eventbus.js'></script>
+</head>
+<style>
+  * {
+    color: white;
+  }
+
+  body {
+    background-color: #67656d;
+  }
+
+  .message-container {
+    width: 45%;
+    background-color: bisque;
+    padding: 50px;
+  }
+
+  .message-body-height {
+    height: 20rem;
+  }
+
+  .message-body {
+    height: 10rem;
+    overflow-y: auto;
+    filter: drop-shadow(0 0 0.5rem #abb4a5);
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+    padding: .5em;
+    cursor: pointer;
+    line-height: 2.5;
+  }
+
+  .header {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .bg-color {
+    background-color: #009688;
+  }
+
+  .chiper {
+    display: inline-block;
+    line-height: 1.5;
+    padding: .5rem;
+    margin: .3rem;
+    background: #3c9a91;
+    border-radius: 1.3em;
+  }
+
+  .row {
+    display: flex;
+    margin: 20px;
+    padding-right: 10px;
+    height: 25rem;
+  }
+
+  .title {
+    font-size: 3rem;
+    padding: 1rem;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div style="margin: 50px;">
+    <div class="title"><span class="bg-color"> WEBSOCKET CLIENT </span></div>
+    <div class="row">
+      <div class="message-container">
+        <h1 class="bg-color header">Node JS Message</h1>
+        <div id="nodejs" class="message-body">
+        </div>
+      </div>
+      <div class="message-container">
+        <h1 class="bg-color header">GO Message</h1>
+        <div id="go" class="message-body">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="message-container" style="width: 100%;">
+        <h1 class="bg-color header">Python Message</h1>
+        <div id="python" class="message-body">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var eb = new EventBus('http://localhost:8999/');
+
+    const CLIENT_ADDRESS = "eventbus.ui.javascript";
+
+    createMessageNode = (message) => {
+      var createChild = document.createElement("div");
+      createChild.setAttribute("class", "chiper");
+      createChild.innerHTML = message;
+
+      return createChild;
+    }
+
+    const createMessage = (id, message) => document.getElementById(id).append( createMessageNode(message) );
+
+    const attachChild = ({ body }) => {
+      switch (body.type) {
+        case 'NODEJS':
+          createMessage('nodejs', body.message);
+          break;
+        case 'GO':
+          createMessage('go', body.message);
+          break;
+        case 'PYTHON':
+          createMessage('python', body.message);
+          break;
+      }
+    };
+
+    eb.onopen = function () {
+      eb.registerHandler(CLIENT_ADDRESS, '', (msg, data) => {
+        attachChild(data);
+      });
+    };
+
+  </script>
+</body>
+
+</html>

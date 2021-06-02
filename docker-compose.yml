@@ -1,0 +1,26 @@
+version: '2.0'
+services: 
+  verxbackend:
+    build: ./vertxeventbus
+    ports: 
+      - "8088:8088"
+      - "8999:8999"
+  go-client:
+    restart: always
+    build: ./go-client
+    depends_on: 
+      - verxbackend
+  ui-client:  
+    build: ./javascript-ws-client
+    depends_on: 
+      - verxbackend
+    ports: 
+      - "8080:8080"
+  python-client:
+    build: ./python-client
+    depends_on: 
+      - verxbackend
+  nodejs-client:
+    build: ./node-client
+    depends_on: 
+      - verxbackend

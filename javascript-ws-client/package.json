@@ -1,0 +1,11 @@
+{
+  "name": "tcp-ws-client",
+  "version": "1.0.0",
+  "description": "Vertx web socket event bus implementation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GnanaJeyam",
+  "license": "ISC"
+}
