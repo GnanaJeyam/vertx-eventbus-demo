@@ -11,8 +11,10 @@ The above command will build all the client and server projects and also spin up
 for container-to-container communication. 
 
 After the successful deployment, Navigate to http://localhost:8080 in the browser.
-You will able to see this screen
-<img src="/output/socketjsoutput.png"><img>
+
+### You will able to see this screen
+
+<img src="/output/socketjsoutput.png" height="500"><img>
 
 
 
