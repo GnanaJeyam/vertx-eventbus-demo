@@ -11,7 +11,7 @@
   }
 
   body {
-    background-color: #67656d;
+    background-color: #caa784;
   }
 
   .message-container {
@@ -63,12 +63,16 @@
     font-size: 3rem;
     padding: 1rem;
     text-align: center;
+    border-radius: 1rem;
+    width: calc(100% - 5rem);
+    left: 1.2%;
+    position: relative;
   }
 </style>
 
 <body>
   <div style="margin: 50px;">
-    <div class="title"><span class="bg-color"> WEBSOCKET CLIENT </span></div>
+    <div class="bg-color title"><span> WEBSOCKET CLIENT </span></div>
     <div class="row">
       <div class="message-container">
         <h1 class="bg-color header">Node JS Message</h1>
@@ -95,7 +99,7 @@
 
     const CLIENT_ADDRESS = "eventbus.ui.javascript";
 
-    createMessageNode = (message) => {
+    const createMessageNode = (message) => {
       var createChild = document.createElement("div");
       createChild.setAttribute("class", "chiper");
       createChild.innerHTML = message;

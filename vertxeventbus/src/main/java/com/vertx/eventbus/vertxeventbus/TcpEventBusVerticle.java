@@ -19,7 +19,7 @@ public class TcpEventBusVerticle extends AbstractVerticle {
   @Override
   public void start(Promise<Void> startPromise) {
     EventBus eb = vertx.eventBus();
-    vertx.deployVerticle(new WebSocketEventBusVerticle());
+    vertx.deployVerticle(new SockJsEventBusVerticle());
 
     // Allow events for the Python, Go and Nodejs addresses as inbound
     // Allow websocket server address as Outbound to publish the events

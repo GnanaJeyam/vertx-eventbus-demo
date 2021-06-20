@@ -7,7 +7,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.sockjs.SockJSBridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
 
-public class WebSocketEventBusVerticle extends AbstractVerticle {
+public class SockJsEventBusVerticle extends AbstractVerticle {
 
   private final String JAVASCRIPT_CLIENT_ADDRESS = "eventbus.ui.javascript";
   private final String WEBSOCKET_SERVER_ADDRESS = "websocket_server_address";
@@ -24,7 +24,6 @@ public class WebSocketEventBusVerticle extends AbstractVerticle {
     SockJSHandler sockJSHandler = SockJSHandler.create(vertx);
     router.mountSubRouter("/", sockJSHandler.bridge(options));
 
-    // Start the web server and tell it to use the router to handle requests.
     vertx.createHttpServer()
       .requestHandler(router)
       .listen(8999);
